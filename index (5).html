@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naam</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function initTailwind() {
+            if (typeof tailwind === 'undefined') {
+                setTimeout(initTailwind, 20);
+                return;
+            }
+            tailwind.config = {
+                darkMode: 'class',
+                theme: {
+                    extend: {
+                        colors: {
+                            holo: {
+                                base: '#00f3ff', // Cyan (Main Color)
+                                accent: '#ff00ff', // Magenta
+                                saffron: '#FF9933', // Spiritual Saffron
+                                dark: '#050510',
+                            }
+                        },
+                        fontFamily: {
+                            sans: ['Rajdhani', 'sans-serif'], // Tech looking font
+                            hindi: ['Tiro Devanagari Hindi', 'serif'],
+                        },
+                        boxShadow: {
+                            'neon-blue': '0 0 5px #00f3ff, 0 0 20px #00f3ff40',
+                            'tech-glow': '0 0 10px #00f3ff, 0 0 20px rgba(0, 243, 255, 0.5)',
+                            'saffron-glow': '0 0 5px #FF9933, 0 0 20px #FF993340',
+                        },
+                        animation: {
+                            'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                            'scanline': 'scanline 8s linear infinite',
+                            'draw-tech': 'drawTech 2s ease-out forwards',
+                            'cinematic-scale': 'cinematicScale 3s ease-out forwards',
+                            'slow-fade-out': 'fadeOut 1.5s ease-out forwards',
+                            'glitch': 'glitch 1s linear infinite',
+                            'spin-slow': 'spin 20s linear infinite',
+                            'spin-reverse': 'spin 25s linear infinite reverse',
+                            'hologram-flicker': 'hologramFlicker 2s infinite',
+                            'float-up': 'floatUp 0.8s ease-out forwards',
+                        },
+                        keyframes: {
+                            scanline: {
+                                '0%': { transform: 'translateY(-100%)' },
+                                '100%': { transform: 'translateY(100%)' }
+                            },
+                            drawTech: {
+                                '0%': { strokeDasharray: 1000, strokeDashoffset: 1000, opacity: 0 },
+                                '10%': { opacity: 1 },
+                                '100%': { strokeDasharray: 1000, strokeDashoffset: 0, opacity: 1 }
+                            },
+                            cinematicScale: {
+                                '0%': { transform: 'scale(0.9)', opacity: 0 },
+                                '20%': { opacity: 1 },
+                                '100%': { transform: 'scale(1.1)', opacity: 1 }
+                            },
+                            fadeOut: {
+                                '0%': { opacity: '1' },
+                                '100%': { opacity: '0', visibility: 'hidden' }
+                            },
+                            glitch: {
+                                '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                                '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                                '62%': { transform: 'translate(0,0) skew(5deg)' }
+                            },
+                            hologramFlicker: {
+                                '0%, 100%': { opacity: 1 },
+                                '5%': { opacity: 0.8 },
+                                '10%': { opacity: 0.9 },
+                                '15%': { opacity: 0.5 },
+                                '20%': { opacity: 1 },
+                                '50%': { opacity: 0.9 },
+                                '55%': { opacity: 0.7 },
+                            },
+                            floatUp: {
+                                '0%': { opacity: '0', transform: 'translate(-50%, -50%) scale(0.2)' },
+                                '20%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
+                                '100%': { opacity: '0', transform: 'translate(-50%, -150%) scale(2.5)' }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+        initTailwind();
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Rajdhani', 'Tiro Devanagari Hindi', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Tech Grid */
+        .holo-bg {
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
+        }
+
+        /* Glass Panel */
+        .holo-glass {
+            background: rgba(5, 15, 25, 0.85);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1), inset 0 0 20px rgba(0, 243, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Tech Y Icon Style */
+        .tech-y-path {
+            fill: none;
+            stroke: #00f3ff; /* Cyan Color */
+            stroke-width: 6;
+            stroke-linecap: butt; /* Sharp ends */
+            stroke-linejoin: miter; /* Sharp corners */
+            filter: drop-shadow(0 0 10px #00f3ff) drop-shadow(0 0 20px #00f3ff);
+        }
+
+        /* Globe Styles */
+        .globe-path {
+            fill: none;
+            stroke: rgba(0, 243, 255, 0.2);
+            stroke-width: 1;
+        }
+        .globe-highlight {
+            fill: #00f3ff;
+            filter: drop-shadow(0 0 5px #00f3ff);
+        }
+
+        /* Text Glow */
+        .text-glow { text-shadow: 0 0 5px #00f3ff, 0 0 20px #00f3ff; }
+        .text-glow-saffron { text-shadow: 0 0 5px #FF9933, 0 0 20px #FF9933; }
+
+        /* Stars Background */
+        .stars {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjEiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjUiLz48Y2lyY2xlIGN4PSIyNTAiIGN5PSI1MCIgcj0iMS41IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC43Ii8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzAwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC40Ii8+PC9zdmc+');
+            animation: zoomStars 20s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes zoomStars {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.5); }
+        }
+        
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #00f3ff; border-radius: 2px; }
+
+        /* Range Slider */
+        input[type=range].music-slider {
+            -webkit-appearance: none;
+            background: transparent;
+            height: 2px;
+            background: rgba(0, 243, 255, 0.2);
+        }
+        input[type=range].music-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background: #00f3ff;
+            box-shadow: 0 0 8px #00f3ff;
+            margin-top: -4px;
+            cursor: pointer;
+        }
+        
+        /* Toast */
+        .toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: rgba(0, 243, 255, 0.1);
+            border: 1px solid #00f3ff;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 80px;
+            transform: translateX(-50%);
+            backdrop-filter: blur(5px);
+        }
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 80px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 80px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body class="bg-black text-white overflow-hidden antialiased flex flex-col items-center">
+
+    <!-- Cinematic Splash Screen -->
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center">
+        <div class="stars"></div>
+        <div class="absolute inset-0 holo-bg opacity-40 animate-pulse-fast"></div>
+        
+        <!-- Stage 1: Tech 'y' + Globe (Perfectly Centered) -->
+        <div id="intro-icon" class="absolute inset-0 flex items-center justify-center z-20">
+            <div class="relative w-[300px] h-[300px] flex items-center justify-center">
+                
+                <!-- Rotating Wireframe Globe -->
+                <svg width="350" height="350" viewBox="0 0 200 200" class="absolute animate-spin-slow opacity-50">
+                    <circle cx="100" cy="100" r="90" stroke="#00f3ff" stroke-width="0.5" fill="none" />
+                    <ellipse cx="100" cy="100" rx="90" ry="30" class="globe-path" transform="rotate(45 100 100)" />
+                    <ellipse cx="100" cy="100" rx="90" ry="30" class="globe-path" transform="rotate(135 100 100)" />
+                    <ellipse cx="100" cy="100" rx="40" ry="90" class="globe-path" />
+                    <path d="M 10 100 L 190 100" class="globe-path" />
+                    
+                    <!-- Tech Nodes -->
+                    <circle cx="100" cy="10" r="2" class="globe-highlight" />
+                    <circle cx="100" cy="190" r="2" class="globe-highlight" />
+                    <circle cx="10" cy="100" r="2" class="globe-highlight" />
+                    <circle cx="190" cy="100" r="2" class="globe-highlight" />
+                </svg>
+
+                <!-- Outer Tech Ring -->
+                <div class="absolute inset-0 border border-holo-base/20 rounded-full w-[250px] h-[250px] m-auto animate-spin-reverse border-dashed"></div>
+                
+                <!-- The 'y' Icon (Constructed with Geometric Lines) -->
+                <svg width="180" height="180" viewBox="0 0 100 100" class="transform z-30 drop-shadow-[0_0_25px_#00f3ff]">
+                    <path d="M 25,25 L 50,60 L 75,25 M 50,60 L 50,95" class="tech-y-path animate-draw-tech" />
+                    <rect x="22" y="22" width="6" height="6" fill="#00f3ff" class="animate-pulse" />
+                    <rect x="72" y="22" width="6" height="6" fill="#00f3ff" class="animate-pulse" />
+                    <rect x="47" y="92" width="6" height="6" fill="#00f3ff" class="animate-pulse" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Stage 2: Welcome Text (Tech Style) -->
+        <div id="intro-text-1" class="hidden absolute inset-0 flex flex-col items-center justify-center z-20 text-center animate-cinematic-scale">
+            <h1 class="text-2xl md:text-4xl font-bold text-holo-base tracking-[0.5em] font-mono mb-4 uppercase opacity-80">
+                Initializing...
+            </h1>
+            <h2 class="text-5xl md:text-7xl font-extrabold text-white tracking-wider font-sans drop-shadow-[0_0_15px_#00f3ff]">
+                VEDIC <span class="text-holo-base">WORLD</span>
+            </h2>
+        </div>
+
+        <!-- Stage 3: Naam Full Screen (Old Colors for Naam) -->
+        <div id="intro-text-2" class="hidden absolute inset-0 flex flex-col items-center justify-center z-20 text-center">
+            <h1 class="text-[100px] md:text-[180px] font-black text-transparent bg-clip-text bg-gradient-to-r from-holo-saffron via-white to-holo-accent tracking-tighter font-hindi drop-shadow-[0_0_20px_#FF9933] animate-glitch mix-blend-screen">
+                Naam
+            </h1>
+            <div class="w-64 h-1 bg-holo-base mt-4 animate-pulse mx-auto"></div>
+            <p class="text-holo-base/70 tracking-[0.3em] text-xs font-mono mt-4 uppercase">System Ready</p>
+        </div>
+    </div>
+
+    <!-- Main App Background -->
+    <div class="fixed inset-0 holo-bg opacity-20 pointer-events-none z-0"></div>
+
+    <!-- App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection, serverTimestamp, initializeFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const CHANTS = [
+            { id: 'radha', name: 'राधा' },
+            { id: 'hare_krishna', name: 'हरे कृष्णा' },
+            { id: 'ram', name: 'श्री राम' },
+            { id: 'sita_ram', name: 'सीता राम' },
+            { id: 'om_namah_shivaya', name: 'ॐ नमः शिवाय' },
+            { id: 'custom', name: '+ मंत्र जोड़ें' }
+        ];
+        
+        const MALA_SIZE = 108;
+
+        window.appState = {
+            currentChantId: 'radha',
+            counts: {},
+            settings: { targetMalas: 16, soundEnabled: true, vibration: true, customName: '' },
+            userId: null,
+            db: null,
+            docRef: null,
+            playlist: [],
+            currentTrackIndex: 0,
+            isPlaying: false,
+            audio: null,
+            lastAction: null,
+            holdTimer: null,
+        };
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        window.playBeadSound = () => {
+            if (!window.appState.settings.soundEnabled) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.05);
+        };
+
+        const updateStatus = (connected) => {
+            const el = document.getElementById('conn-status');
+            if (el) {
+                el.innerHTML = connected ? 'ONLINE' : 'OFFLINE';
+                el.style.color = connected ? '#00f3ff' : '#FF9933';
+            }
+        };
+
+        const initApp = async () => {
+            const splash = document.getElementById('splash-screen');
+            const icon = document.getElementById('intro-icon');
+            const text1 = document.getElementById('intro-text-1');
+            const text2 = document.getElementById('intro-text-2');
+
+            setTimeout(() => {
+                icon.style.display = 'none';
+                text1.classList.remove('hidden');
+            }, 2500); 
+
+            setTimeout(() => {
+                text1.style.display = 'none';
+                text2.classList.remove('hidden');
+            }, 5000);
+
+            setTimeout(() => {
+                 splash.classList.add('animate-slow-fade-out');
+                 setTimeout(() => { splash.style.display = 'none'; }, 1500);
+            }, 7500);
+
+            loadFromLocalStorage();
+
+            window.appState.audio = new Audio();
+            window.appState.audio.ontimeupdate = updateProgress;
+            window.appState.audio.onended = playNextTrack;
+            window.appState.audio.onerror = () => { console.error("Audio Error"); playNextTrack(); };
+
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+            setupHoldEvents();
+
+            if (!firebaseConfig) return;
+
+            try {
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                try {
+                    window.appState.db = initializeFirestore(app, { experimentalForceLongPolling: true });
+                } catch (e) { window.appState.db = getFirestore(app); }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        window.appState.userId = user.uid;
+                        setupFirestore(user.uid, appId);
+                        updateStatus(true);
+                    } else { updateStatus(false); }
+                });
+
+                if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken);
+                else await signInAnonymously(auth);
+            } catch (err) { console.error("Init Error:", err); }
+        };
+
+        const loadFromLocalStorage = () => {
+            try {
+                const local = JSON.parse(localStorage.getItem('holo_mala_v1') || 'null');
+                if (local) {
+                    window.appState.counts = { ...window.appState.counts, ...local.counts };
+                    if(local.settings) window.appState.settings = { ...window.appState.settings, ...local.settings };
+                    renderUI();
+                }
+            } catch(e) { console.log("Local storage error", e); }
+        };
+
+        const setupFirestore = (userId, appId) => {
+            const path = `artifacts/${appId}/users/${userId}/chant_app`;
+            window.appState.docRef = doc(window.appState.db, path, 'user_data');
+
+            onSnapshot(window.appState.docRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.data();
+                    if (data.counts) window.appState.counts = data.counts;
+                    if (data.settings) window.appState.settings = { ...window.appState.settings, ...data.settings };
+                    updateStatus(true);
+                }
+                renderUI();
+            }, (error) => {
+                console.warn("Firestore Offline/Error:", error.message);
+                updateStatus(false);
+            });
+        };
+
+        const saveData = async () => {
+            localStorage.setItem('holo_mala_v1', JSON.stringify({
+                counts: window.appState.counts,
+                settings: window.appState.settings,
+                ts: Date.now()
+            }));
+
+            if (!window.appState.docRef) return;
+            try {
+                await setDoc(window.appState.docRef, {
+                    counts: window.appState.counts,
+                    settings: window.appState.settings,
+                    lastUpdated: serverTimestamp()
+                }, { merge: true });
+            } catch (e) { console.log("Sync pending..."); }
+        };
+
+        let saveTimeout;
+        const triggerSave = () => {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(saveData, 1000);
+        };
+
+        window.renderPlayerUI = function() {
+            const { playlist, currentTrackIndex, isPlaying } = window.appState;
+            const playBtn = document.getElementById('play-pause-btn');
+            if(playBtn) playBtn.innerHTML = isPlaying ? '⏸' : '▶';
+            const viz = document.getElementById('music-viz');
+            if(viz) viz.style.opacity = isPlaying ? '1' : '0.2';
+
+            const trackNameEl = document.getElementById('track-name');
+            const trackCountEl = document.getElementById('track-count');
+            if (trackNameEl && trackCountEl) {
+                if (playlist.length > 0) {
+                    trackNameEl.innerText = playlist[currentTrackIndex].name;
+                    trackCountEl.innerText = `${currentTrackIndex + 1} / ${playlist.length}`;
+                } else {
+                    trackNameEl.innerText = "NO AUDIO LOADED";
+                    trackCountEl.innerText = "-/-";
+                }
+            }
+
+            const listEl = document.getElementById('playlist-items');
+            if(listEl) {
+                listEl.innerHTML = playlist.map((file, idx) => `
+                    <div onclick="loadTrack(${idx})" class="p-2 text-xs border-b border-holo-base/20 cursor-pointer hover:bg-holo-base/10 flex justify-between ${idx === currentTrackIndex ? 'text-holo-saffron' : 'text-gray-400'}">
+                        <span class="truncate w-4/5">${idx + 1}. ${file.name}</span>
+                        ${idx === currentTrackIndex ? '<span>Now Playing</span>' : ''}
+                    </div>
+                `).join('');
+            }
+        };
+
+        window.renderUI = () => {
+            const { currentChantId, counts, settings } = window.appState;
+            const currentCount = counts[currentChantId] || 0;
+            const chantObj = CHANTS.find(c => c.id === currentChantId);
+            let displayName = chantObj ? chantObj.name : 'Unknown';
+            if (currentChantId === 'custom' && settings.customName) displayName = settings.customName;
+
+            const malasDone = Math.floor(currentCount / MALA_SIZE);
+            const beadsDone = currentCount % MALA_SIZE;
+            const targetMalas = settings.targetMalas || 16;
+            const progressPercent = Math.min((malasDone / targetMalas) * 100, 100);
+
+            const elName = document.getElementById('display-name');
+            if(elName) {
+                if (currentChantId === 'custom') {
+                    elName.innerHTML = `${displayName} <button onclick="editCustomName(event)" class="ml-2 text-sm text-holo-base/70 hover:text-holo-accent border border-holo-base/30 rounded-full p-1" title="Edit Name">✏️</button>`;
+                } else {
+                    elName.innerText = displayName;
+                }
+            }
+
+            const elCount = document.getElementById('display-count');
+            if(elCount) elCount.innerText = currentCount.toLocaleString();
+
+            const elMalaStat = document.getElementById('mala-stat');
+            if(elMalaStat) elMalaStat.innerText = `MALA: ${malasDone} | BEAD: ${beadsDone}`;
+
+            const elProgFill = document.getElementById('progress-fill');
+            if(elProgFill) elProgFill.style.width = `${progressPercent}%`;
+
+            const elProgText = document.getElementById('progress-text');
+            if(elProgText) elProgText.innerText = `TARGET: ${malasDone}/${targetMalas}`;
+
+            const grid = document.getElementById('chant-grid');
+            if (grid) {
+                grid.innerHTML = CHANTS.map(c => {
+                    const isSelected = c.id === currentChantId;
+                    let gridName = c.name;
+                    const isCustomEmpty = c.id === 'custom' && !settings.customName;
+                    if(c.id === 'custom' && settings.customName) gridName = settings.customName;
+                    const customStyle = isCustomEmpty ? 'border-dashed border-holo-saffron/50 text-holo-saffron bg-holo-saffron/5 hover:bg-holo-saffron/10' : '';
+                    const selectedStyle = isSelected ? 'border-holo-saffron bg-holo-saffron/10 shadow-saffron-glow' : 'border-holo-base/30 hover:border-holo-base hover:bg-holo-base/5';
+                    const finalStyle = isCustomEmpty && !isSelected ? customStyle : selectedStyle;
+                    return `
+                    <button onclick="selectChant('${c.id}')" 
+                        class="p-3 rounded-lg border transition-all duration-200 flex flex-col items-center gap-1 relative overflow-hidden group ${finalStyle}">
+                        <span class="font-sans text-lg ${isSelected || isCustomEmpty ? 'text-holo-saffron drop-shadow-[0_0_5px_#FF9933]' : 'text-gray-300'} truncate w-full text-center font-bold">${gridName}</span>
+                        <span class="text-xs font-mono opacity-60 font-bold">${counts[c.id] || 0}</span>
+                    </button>`;
+                }).join('');
+            }
+
+            const elFsName = document.getElementById('fs-name');
+            if(elFsName) elFsName.innerText = displayName;
+            const elFsCount = document.getElementById('fs-count');
+            if(elFsCount) elFsCount.innerText = beadsDone;
+            const elFsMala = document.getElementById('fs-mala');
+            if(elFsMala) elFsMala.innerText = `MALA COMPLETED: ${malasDone}`;
+            const elTargetInput = document.getElementById('target-input');
+            if(elTargetInput) elTargetInput.value = settings.targetMalas;
+
+            const settingsBlock = document.getElementById('settings-block');
+            if(settingsBlock) {
+                settingsBlock.innerHTML = `
+                    <div class="flex justify-between items-center mb-2 border-b border-holo-base/10 pb-2">
+                        <h3 class="text-[10px] uppercase tracking-widest text-holo-base/70 font-bold">Settings</h3>
+                        <button onclick="exportCSV()" class="text-[10px] bg-holo-base/10 text-holo-base border border-holo-base/30 px-2 py-1 rounded hover:bg-holo-base hover:text-black transition font-bold">⬇ Export CSV</button>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-holo-base/90 font-bold">Sound (आवाज़)</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" ${settings.soundEnabled ? 'checked' : ''} onchange="toggleSound(this.checked)" class="sr-only peer">
+                            <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-holo-base after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-holo-base"></div>
+                        </label>
+                    </div>
+                `;
+            }
+
+            window.renderPlayerUI();
+        };
+
+        function createFloatingMantra(x, y) {
+            const el = document.createElement('div');
+            const chantObj = CHANTS.find(c => c.id === window.appState.currentChantId);
+            let text = chantObj ? chantObj.name : '';
+            if (window.appState.currentChantId === 'custom' && window.appState.settings.customName) {
+                text = window.appState.settings.customName;
+            } else if (window.appState.currentChantId === 'custom') {
+                text = 'जप'; 
+            }
+            el.innerText = text;
+            el.className = 'fixed pointer-events-none text-[80px] md:text-[150px] font-hindi font-bold text-holo-base text-glow animate-float-up z-50 whitespace-nowrap opacity-90 subpixel-antialiased';
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+            document.body.appendChild(el);
+            setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 800);
+        }
+
+        window.selectChant = (id) => {
+            window.appState.currentChantId = id;
+            if (id === 'custom' && !window.appState.settings.customName) setTimeout(() => window.editCustomName(), 100);
+            renderUI();
+        };
+
+        window.increment = (e) => {
+            if (e && e.cancelable && e.type !== 'mousedown') e.preventDefault(); 
+            let clientX, clientY;
+            if (e) {
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else if (e.clientX !== undefined) {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+            }
+            if (clientX === undefined || clientY === undefined) {
+                 const rect = document.body.getBoundingClientRect();
+                 clientX = rect.width / 2;
+                 clientY = rect.height / 2;
+            }
+            createFloatingMantra(clientX, clientY);
+            const id = window.appState.currentChantId;
+            window.appState.lastAction = { id: id, time: Date.now() };
+            window.appState.counts[id] = (window.appState.counts[id] || 0) + 1;
+            window.playBeadSound();
+            if (window.appState.settings.vibration && navigator.vibrate) navigator.vibrate(15);
+            createBurstEffect();
+            renderUI();
+            triggerSave();
+        };
+
+        window.undoLast = () => {
+            const a = window.appState.lastAction;
+            if (!a) {
+                showToast("Nothing to undo");
+                return;
+            }
+            if ((window.appState.counts[a.id] || 0) > 0) {
+                window.appState.counts[a.id]--;
+                window.appState.lastAction = null;
+                showToast("Undo Successful");
+                renderUI();
+                triggerSave();
+            }
+        };
+
+        window.toggleSound = (isChecked) => {
+            window.appState.settings.soundEnabled = isChecked;
+            triggerSave();
+            if(isChecked) window.playBeadSound();
+        };
+
+        const setupHoldEvents = () => {
+            const targets = ['touch-area', 'fullscreen-overlay'];
+            targets.forEach(id => {
+                const el = document.getElementById(id);
+                if(!el) return;
+                const start = (e) => {
+                    window.appState.holdTimer = setInterval(() => { window.increment(e); }, 200);
+                };
+                const stop = (e) => {
+                    if (window.appState.holdTimer) {
+                        clearInterval(window.appState.holdTimer);
+                        window.appState.holdTimer = null;
+                    }
+                };
+                el.addEventListener('mousedown', start);
+                el.addEventListener('mouseup', stop);
+                el.addEventListener('mouseleave', stop);
+                el.addEventListener('touchstart', start, {passive: false}); 
+                el.addEventListener('touchend', stop);
+            });
+        };
+
+        window.editCustomName = (e) => {
+            if(e) e.stopPropagation();
+            const currentName = window.appState.settings.customName || '';
+            const newName = prompt("Enter Mantra Name:", currentName);
+            if (newName !== null && newName.trim() !== "") {
+                window.appState.settings.customName = newName.trim();
+                renderUI();
+                triggerSave();
+            }
+        };
+
+        window.exportCSV = () => {
+            const rows = Object.keys(window.appState.counts).map(k => {
+                const chant = CHANTS.find(c => c.id === k);
+                const name = (k === 'custom' && window.appState.settings.customName) 
+                             ? window.appState.settings.customName 
+                             : (chant ? chant.name : k);
+                return `${name},${window.appState.counts[k]}`;
+            }).join('\n');
+            const csvContent = `Mantra,Count\n${rows}`;
+            const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "jap_mala_data.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        function createBurstEffect() {
+            const countEl = document.getElementById('display-count');
+            if(countEl) {
+                countEl.style.textShadow = "0 0 40px rgba(0, 243, 255, 1)";
+                countEl.style.transform = "scale(1.1)";
+                setTimeout(() => {
+                    countEl.style.textShadow = "0 0 10px rgba(0, 243, 255, 0.7)";
+                    countEl.style.transform = "scale(1)";
+                }, 100);
+            }
+        }
+
+        function showToast(msg) {
+            const el = document.getElementById('toast-msg');
+            el.innerText = msg;
+            el.className = "toast show";
+            setTimeout(function(){ el.className = el.className.replace("show", ""); }, 3000);
+        }
+
+        window.resetCurrent = () => {
+            if(confirm("RESET COUNTER?")) {
+                window.appState.counts[window.appState.currentChantId] = 0;
+                renderUI();
+                triggerSave();
+            }
+        };
+
+        window.updateSettings = (key, value) => {
+            window.appState.settings[key] = value;
+            renderUI();
+            triggerSave();
+        };
+
+        window.handleMusicUpload = (e) => {
+            const files = Array.from(e.target.files);
+            if (files.length === 0) return;
+            window.appState.playlist = [...window.appState.playlist, ...files];
+            if (window.appState.playlist.length === files.length) {
+                window.appState.currentTrackIndex = 0;
+                window.loadTrack(0);
+            } else {
+                window.renderPlayerUI();
+            }
+        };
+
+        // Made global to fix onclick reference error
+        window.loadTrack = function(index) {
+            if (index < 0 || index >= window.appState.playlist.length) return;
+            const file = window.appState.playlist[index];
+            const url = URL.createObjectURL(file);
+            window.appState.audio.src = url;
+            window.appState.currentTrackIndex = index;
+            window.appState.isPlaying = true;
+            window.appState.audio.play();
+            window.renderPlayerUI();
+        }
+
+        window.togglePlay = () => {
+            if (window.appState.playlist.length === 0) return;
+            if (window.appState.audio.paused) {
+                window.appState.audio.play();
+                window.appState.isPlaying = true;
+            } else {
+                window.appState.audio.pause();
+                window.appState.isPlaying = false;
+            }
+            window.renderPlayerUI();
+        };
+
+        window.playNextTrack = () => {
+            let nextIndex = window.appState.currentTrackIndex + 1;
+            if (nextIndex >= window.appState.playlist.length) nextIndex = 0;
+            window.loadTrack(nextIndex);
+        };
+
+        window.playPrevTrack = () => {
+            let prevIndex = window.appState.currentTrackIndex - 1;
+            if (prevIndex < 0) prevIndex = window.appState.playlist.length - 1;
+            window.loadTrack(prevIndex);
+        };
+
+        window.seekAudio = (val) => {
+            const duration = window.appState.audio.duration;
+            if (duration) window.appState.audio.currentTime = (val / 100) * duration;
+        };
+
+        function updateProgress() {
+            const audio = window.appState.audio;
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                const slider = document.getElementById('music-progress');
+                if (slider) slider.value = percent;
+                const curMins = Math.floor(audio.currentTime / 60);
+                const curSecs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+                const el = document.getElementById('track-time');
+                if(el) el.innerText = `${curMins}:${curSecs}`;
+            }
+        }
+
+        window.togglePlaylistView = () => {
+            const pl = document.getElementById('playlist-panel');
+            pl.classList.toggle('hidden');
+        }
+
+        const apiKey = "";
+        window.askGemini = async (type) => {
+            const outputDiv = document.getElementById('ai-output');
+            outputDiv.classList.remove('hidden');
+            outputDiv.innerHTML = '<div class="flex items-center gap-2"><div class="w-2 h-2 bg-holo-base rounded-full animate-bounce"></div><span class="animate-pulse text-holo-base text-[10px] tracking-widest font-bold">CONNECTING...</span></div>';
+            
+            let currentMantraName = CHANTS.find(c => c.id === window.appState.currentChantId).name;
+            if(window.appState.currentChantId === 'custom' && window.appState.settings.customName) {
+                currentMantraName = window.appState.settings.customName;
+            }
+
+            let prompt = type === 'meaning' 
+                ? `Explain the spiritual significance of chanting "${currentMantraName}" in Hindi (Devanagari script). Keep it spiritual and concise (under 60 words).`
+                : "Give me a short, powerful spiritual motivation quote in Hindi (Devanagari) for a devotee. Under 40 words.";
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                const data = await response.json();
+                outputDiv.innerHTML = `<div class="border-l-2 border-holo-base pl-2 animate-[slide_0.3s_ease-out]"><p class="text-sm text-white/90 font-hindi leading-relaxed font-bold">${data.candidates[0].content.parts[0].text}</p></div>`;
+            } catch (error) {
+                outputDiv.innerHTML = '<span class="text-red-400 text-[10px] font-bold">UPLINK FAILED.</span>';
+            }
+        }
+        
+        window.toggleFullScreen = (show) => {
+            const el = document.getElementById('fullscreen-overlay');
+            if (show) {
+                el.classList.remove('hidden'); el.classList.add('flex');
+                document.body.requestFullscreen().catch(e=>{});
+                setupHoldEvents();
+            } else {
+                el.classList.add('hidden'); el.classList.remove('flex');
+                if(document.exitFullscreen) document.exitFullscreen().catch(e=>{});
+            }
+        };
+
+        window.onload = initApp;
+    </script>
+
+    <div id="toast-msg" class="toast">Notification</div>
+
+    <div class="relative z-10 w-full max-w-md h-screen flex flex-col p-4 gap-4 mx-auto">
+        
+        <header class="holo-glass rounded-xl p-4 flex justify-between items-center shrink-0">
+            <!-- Centered Header Content -->
+            <div class="w-full flex items-center justify-between relative">
+                 <!-- Left Placeholder for Balance -->
+                 <div class="w-8"></div>
+                 
+                 <!-- Center Title -->
+                 <div class="text-center">
+                    <h1 class="text-2xl font-bold text-holo-saffron text-glow-saffron tracking-wider uppercase">Naam</h1>
+                    <div class="text-[10px] font-mono tracking-widest opacity-70 flex items-center justify-center gap-2 font-bold">
+                        SYS_STATUS: <span id="conn-status" class="text-holo-base animate-pulse">INIT...</span>
+                    </div>
+                 </div>
+
+                 <!-- Right Icon (Tech y - Cyan) -->
+                 <div class="h-8 w-8 rounded-full border border-holo-base/50 flex items-center justify-center shadow-neon-blue animate-float">
+                    <svg width="20" height="20" viewBox="0 0 100 100" class="pb-0.5">
+                         <!-- Mini Tech Y -->
+                         <path d="M 25,25 L 50,60 L 75,25 M 50,60 L 50,95" fill="none" stroke="#00f3ff" stroke-width="10" stroke-linecap="butt" />
+                    </svg>
+                 </div>
+            </div>
+        </header>
+
+        <main class="flex-grow flex flex-col gap-3 overflow-hidden relative">
+            
+            <div id="playlist-panel" class="hidden absolute inset-0 z-30 bg-black/90 backdrop-blur-xl rounded-2xl p-4 flex flex-col border border-holo-base/30">
+                <div class="flex justify-between items-center mb-4 border-b border-holo-base/20 pb-2">
+                    <h3 class="text-holo-base uppercase tracking-widest font-bold">Queue / Playlist</h3>
+                    <button onclick="togglePlaylistView()" class="text-holo-base hover:text-white">✖</button>
+                </div>
+                <div id="playlist-items" class="flex-grow overflow-y-auto custom-scroll space-y-1">
+                    <div class="text-center text-gray-500 text-sm mt-10">No tracks added yet.</div>
+                </div>
+                <label class="mt-4 w-full py-3 rounded bg-holo-base/20 border border-holo-base/50 text-center text-holo-base font-bold uppercase cursor-pointer hover:bg-holo-base hover:text-black transition">
+                    + Add More Tracks
+                    <input type="file" multiple accept="audio/*" class="hidden" onchange="handleMusicUpload(event)">
+                </label>
+            </div>
+
+            <div id="touch-area" class="holo-glass rounded-2xl p-4 text-center flex flex-col items-center justify-center relative group min-h-[200px] shrink-0 cursor-pointer active:bg-holo-base/5 transition-colors select-none">
+                <div class="absolute w-40 h-40 border border-holo-base/20 rounded-full animate-[spin_10s_linear_infinite] pointer-events-none"></div>
+                
+                <button onclick="event.stopPropagation(); resetCurrent()" class="absolute top-2 right-2 text-holo-base/50 hover:text-red-400 text-[10px] border border-holo-base/20 px-2 py-1 rounded z-20 font-bold tracking-widest">RST</button>
+                
+                <button onclick="event.stopPropagation(); undoLast()" class="absolute top-2 left-2 text-holo-base/50 hover:text-yellow-400 text-[10px] border border-holo-base/20 px-2 py-1 rounded z-20 font-bold tracking-widest" title="Undo">↩ UNDO</button>
+
+                <h2 id="display-name" class="text-2xl font-hindi font-bold text-holo-saffron text-glow-saffron mb-2 z-10 flex items-center justify-center gap-2 pointer-events-none">...</h2>
+
+                <div class="w-full flex items-center justify-center z-10 transition-transform pointer-events-none">
+                    <span id="display-count" class="text-6xl font-mono font-bold text-holo-base text-glow">0</span>
+                </div>
+                <div id="mala-stat" class="font-mono text-[10px] text-holo-base/80 mt-2 z-10 pointer-events-none font-bold">MALA: 0 | BEAD: 0</div>
+                <div class="w-full h-1 bg-gray-800 rounded-full overflow-hidden mt-2 relative z-10 pointer-events-none">
+                    <div id="progress-fill" class="h-full bg-holo-base shadow-tech-glow transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <p id="progress-text" class="text-[10px] text-right w-full text-holo-base/60 mt-1 font-mono z-10 relative pointer-events-none font-bold">TARGET: 0/0</p>
+                
+                <p class="text-[9px] text-holo-base/40 absolute bottom-1 font-mono font-bold tracking-widest">HOLD FOR AUTO-COUNT</p>
+            </div>
+
+            <div class="flex-grow overflow-y-auto space-y-3 pr-1 custom-scroll pb-40">
+                <div class="holo-glass rounded-xl p-3">
+                    <h3 class="text-[10px] uppercase tracking-widest text-holo-base/70 mb-2 font-bold">Select Mantra</h3>
+                    <div id="chant-grid" class="grid grid-cols-2 gap-2"></div>
+                </div>
+                
+                <div id="settings-block" class="holo-glass rounded-xl p-3 border border-holo-base/20"></div>
+
+                <div class="holo-glass rounded-xl p-3 border border-holo-base/30">
+                    <h3 class="text-[10px] uppercase tracking-widest text-holo-base mb-2 flex items-center gap-2 font-bold"><span>✨</span> AI Insight</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="askGemini('meaning')" class="text-[10px] bg-holo-base/10 border border-holo-base/50 text-white py-2 rounded hover:bg-holo-base hover:text-black transition uppercase font-bold tracking-wider">Mantra Meaning</button>
+                        <button onclick="askGemini('motivation')" class="text-[10px] bg-holo-base/10 border border-holo-base/50 text-holo-base py-2 rounded hover:bg-holo-base hover:text-black transition uppercase font-bold tracking-wider">Motivation</button>
+                        <a href="https://vedic1-uhzj-7jo23lkmn-anshumanyadav0s-projects.vercel.app" target="_blank" class="col-span-2 mt-2 text-[10px] bg-holo-base/20 border border-holo-base text-holo-base py-2 rounded hover:bg-holo-base hover:text-black transition uppercase font-bold tracking-wider text-center flex items-center justify-center gap-2">
+                            <span>🤖</span> Launch Vedic AI
+                        </a>
+                    </div>
+                    <div id="ai-output" class="hidden mt-2 p-2 rounded bg-black/60 border border-holo-base/20 text-left"></div>
+                </div>
+
+                <!-- Made by Vedic - Unique Badge -->
+                <div class="mt-6 mb-8 text-center">
+                    <div class="relative inline-block group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-holo-base via-white to-holo-base rounded blur opacity-20 group-hover:opacity-70 transition duration-500"></div>
+                        <div class="relative border border-holo-base/30 bg-black/80 rounded px-4 py-2 flex flex-col items-center">
+                            <span class="text-[8px] font-mono text-holo-base/50 tracking-widest uppercase mb-0.5 font-bold">CRAFTED BY</span>
+                            <span class="text-xl font-hindi font-bold text-transparent bg-clip-text bg-gradient-to-r from-holo-base via-white to-holo-base drop-shadow-[0_0_10px_rgba(0,243,255,0.3)]">
+                                VEDIC
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-20 bg-black/90 border-t border-holo-base/40 backdrop-blur-xl p-3 rounded-t-xl shadow-neon-blue">
+            <div class="flex items-center gap-2 mb-2 px-1">
+                <span id="track-time" class="text-[10px] font-mono text-holo-base w-8 font-bold">0:00</span>
+                <input type="range" id="music-progress" class="music-slider w-full" value="0" max="100" oninput="seekAudio(this.value)">
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3 w-1/3 overflow-hidden">
+                    <div id="music-viz" class="flex gap-0.5 items-end h-6 w-6 opacity-20 transition-opacity">
+                        <div class="w-1 bg-holo-base animate-equalizer" style="animation-delay: 0s"></div>
+                        <div class="w-1 bg-holo-base animate-equalizer" style="animation-delay: 0.2s"></div>
+                        <div class="w-1 bg-holo-base animate-equalizer" style="animation-delay: 0.4s"></div>
+                    </div>
+                    <div class="overflow-hidden">
+                        <div id="track-name" class="text-xs font-bold text-white truncate">No Track</div>
+                        <div id="track-count" class="text-[10px] text-gray-400 font-mono font-bold">Queue Empty</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="playPrevTrack()" class="text-holo-base hover:text-white text-xl">⏮</button>
+                    <button onclick="togglePlay()" id="play-pause-btn" class="w-10 h-10 rounded-full bg-holo-base text-black flex items-center justify-center font-bold text-xl hover:bg-white hover:shadow-neon-blue transition">▶</button>
+                    <button onclick="playNextTrack()" class="text-holo-base hover:text-white text-xl">⏭</button>
+                </div>
+                <div class="w-1/3 flex justify-end gap-3">
+                    <button onclick="togglePlaylistView()" class="text-holo-base/70 hover:text-holo-base text-xl" title="Playlist">📜</button>
+                    <label class="text-holo-base/70 hover:text-holo-base text-xl cursor-pointer" title="Add Songs">
+                        ➕
+                        <input type="file" multiple accept="audio/*" class="hidden" onchange="handleMusicUpload(event)">
+                    </label>
+                </div>
+            </div>
+            <button onclick="toggleFullScreen(true)" class="w-full mt-2 h-1 bg-holo-base/20 hover:bg-holo-base/50 rounded-full"></button>
+        </footer>
+    </div>
+
+    <div id="fullscreen-overlay" 
+         class="fixed inset-0 bg-black z-50 hidden flex-col items-center justify-center cursor-pointer overflow-hidden select-none">
+        <div class="absolute inset-0 holo-bg opacity-50 pointer-events-none"></div>
+        <button onclick="event.stopPropagation(); toggleFullScreen(false)" class="absolute top-6 right-6 z-50 text-holo-base/50 hover:text-white border border-holo-base/30 px-4 py-2 rounded-full text-xs tracking-widest uppercase bg-black/50 font-bold">Exit</button>
+        <div class="relative z-10 text-center space-y-6 pointer-events-none">
+            <h2 id="fs-name" class="text-4xl font-hindi font-bold text-holo-base text-glow animate-float">...</h2>
+            <div class="text-[150px] font-mono font-bold leading-none text-white text-shadow-lg" id="fs-count">0</div>
+            <div class="inline-block border border-holo-base/50 rounded px-6 py-2 bg-black/40 backdrop-blur">
+                <span class="text-xs text-holo-base uppercase tracking-widest font-bold" id="fs-mala">MALA: 0</span>
+            </div>
+            <p class="text-[10px] text-holo-base/40 font-mono font-bold tracking-widest">HOLD SCREEN TO AUTO-COUNT</p>
+        </div>
+    </div>
+
+</body>
+</html>
